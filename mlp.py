@@ -137,11 +137,13 @@ class MLPClassifier(BaseEstimator, ClassifierMixin):
             prediction, hidden_outs = self._predict_one(row)
             row = np.append(row, 1)
 
+            #    error = {targ - prediction}; {prediction * (1 - prediction)} = the derivative of the sigmoid function
             error_pred = (targ - prediction) * prediction * (1 - prediction)
+            # Doing this error * derivative of sigmoid sets us up to do back prop.
 
             error_hidden = np.matmul(error_pred, self.weights_hidden_to_output.T)
-            error_hidden *= (1 - hidden_outs) * hidden_outs
-            error_hidden = error_hidden[:-1]
+            error_hidden *= (1 - hidden_outs) * hidden_outs      # This (1-out)*out = derivative of sigmoid func
+            error_hidden = error_hidden[:-1]                     # Remove bias, necessary to compute delta input weights
 
             # delta_first weights = row.T * error_hidden
             delta_first_weights = np.matmul(row.reshape((len(row), 1)), error_hidden.reshape((1, len(error_hidden))))
