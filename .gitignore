@@ -1,0 +1,14 @@
+.idea
+.git
+__pycache__
+diff_lr.png
+diff_weights.png
+epochs_needed.png
+evaluation.csv
+Isis_data.png
+linsep2nonorigin.arff
+num_epoch_Hyper.png
+to_turn_in.zip
+vowel_data.png
+vowels.arff
+
