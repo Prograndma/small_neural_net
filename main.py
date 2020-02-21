@@ -25,21 +25,33 @@ def main():
 
     labels = one_hot
 
-    boston = load_boston()
-    x = boston.data
-    y = boston.target
-    bad = skMLP()
-    bad.fit(data, labels)
-    print(f"bad_score = {bad.score(data, labels)}")
-    skitch = skMLP()
-    params = {'learning_rate_init' : [.001, .01, .1,],
-              'hidden_layer_sizes' : [(1000), (100, 100, 100), (16, 16, 16, 16)],
-              'early_stopping' : [True],
-              'momentum' : [.5, .9, 1]}
-    grid_search = GridSearchCV(skitch, params, 'accuracy')
-    grid_search = grid_search.fit(data, labels)
-    score = grid_search.score(data, labels)
-    print(f"score = {score}")
+    model = MLPClassifier(momentum=.5, valid_size=.25)
+    MSE_valid, accuracies, MSE_train, num_epochs, MSE_test = model.fit(data, labels)
+
+    plt.plot(accuracies, label="Accuracy of model")
+    plt.plot(MSE_train, label="MSE on Training set")
+    plt.plot(MSE_valid, label="MSE on Validation set")
+    plt.plot(MSE_test, label="MSE on Testing set")
+    plt.legend()
+    plt.xlabel("Epochs")
+    plt.show()
+
+
+    # boston = load_boston()
+    # x = boston.data
+    # y = boston.target
+    # bad = skMLP()
+    # bad.fit(data, labels)
+    # print(f"bad_score = {bad.score(data, labels)}")
+    # skitch = skMLP()
+    # params = {'learning_rate_init' : [.001, .01, .1,],
+    #           'hidden_layer_sizes' : [(1000), (100, 100, 100), (16, 16, 16, 16)],
+    #           'early_stopping' : [True],
+    #           'momentum' : [.5, .9, 1]}
+    # grid_search = GridSearchCV(skitch, params, 'accuracy')
+    # grid_search = grid_search.fit(data, labels)
+    # score = grid_search.score(data, labels)
+    # print(f"score = {score}")
     # print(labels)
     #
     # data = [[0,0],
