@@ -14,7 +14,6 @@ from sklearn.datasets import load_boston
 
 
 def main():
-    # mat = Arff(f"{dir_path}iris.arff")
     mat = Arff(f"{dir_path}vowels.arff")
     data = mat.data[:, 0:-1]
     labels = mat.data[:, -1].reshape(-1, 1)
@@ -35,38 +34,6 @@ def main():
     plt.legend()
     plt.xlabel("Epochs")
     plt.show()
-
-
-    # boston = load_boston()
-    # x = boston.data
-    # y = boston.target
-    # bad = skMLP()
-    # bad.fit(data, labels)
-    # print(f"bad_score = {bad.score(data, labels)}")
-    # skitch = skMLP()
-    # params = {'learning_rate_init' : [.001, .01, .1,],
-    #           'hidden_layer_sizes' : [(1000), (100, 100, 100), (16, 16, 16, 16)],
-    #           'early_stopping' : [True],
-    #           'momentum' : [.5, .9, 1]}
-    # grid_search = GridSearchCV(skitch, params, 'accuracy')
-    # grid_search = grid_search.fit(data, labels)
-    # score = grid_search.score(data, labels)
-    # print(f"score = {score}")
-    # print(labels)
-    #
-    # data = [[0,0],
-    #         [0,1]]
-    # targ = [[1],
-    #         [0]]
-    #
-    # test = MLPClassifier(hidden_layer_widths=np.array([2]), momentum=0, deterministic=1, lr=1, shuffle=False, zero_weights=True)
-    # test.fit(np.array(data), np.array(targ))
-
-    # df = pd.DataFrame(data, index=[0])
-    # df.plot(kind='bar')
-    # plt.show()
-
-
 
 
 if __name__ == "__main__":
