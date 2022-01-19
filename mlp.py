@@ -3,27 +3,11 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 import copy
 
 
-### NOTE: The only methods you are required to have are:
-#   * predict
-#   * fit
-#   * score
-#   * get_weights
-#   They must take at least the parameters below, exactly as specified. The output of
-#   get_weights must be in the same format as the example provided.
-
 
 class MLPClassifier(BaseEstimator, ClassifierMixin):
 
     def __init__(self, hidden_layer_width=None, lr=.1, momentum=0, shuffle=True, deterministic=None,
                  use_zero_weights=False, valid_size=0.):
-        """ Initialize class with chosen hyperparameters.
-        Args:
-            hidden_layer_width (list(int)): A list of integers which defines the width of each hidden layer
-            lr (float): A learning rate / step size.
-            shuffle: Whether to shuffle the training data each epoch. DO NOT SHUFFLE for evaluation / debug datasets.
-        Example:
-            mlp = MLPClassifier([3,3]),  <--- this will create a model with two hidden layers, both 3 nodes wide
-        """
         self.hidden_layer_width = hidden_layer_width
         self.lr = lr            # Learning rate. It's how much you update the weights. higher = faster but less accurate.
         self.momentum = momentum
@@ -41,7 +25,7 @@ class MLPClassifier(BaseEstimator, ClassifierMixin):
             self.deterministic = False
 
     def fit(self, X, y, initial_weights=None):
-        """ Fit the data; run the algorithm and adjust the weights to find a good solution
+        """ 
         Args:
             X (array-like): A 2D numpy array with the training data, excluding targets
             y (array-like): A 2D numpy array with the training targets
@@ -245,9 +229,7 @@ class MLPClassifier(BaseEstimator, ClassifierMixin):
         return MSE, (num_right / total)
 
     def _shuffle_data(self, X, y):
-        """ Shuffle the data! This _ prefix suggests that this method should only be called internally.
-            It might be easier to concatenate X & y and shuffle a single 2D array, rather than
-             shuffling X and y exactly the same way, independently.
+        """ Shuffle the data! 
         """
         y_size = y.shape[1]
         X = np.hstack((X, y))
@@ -259,10 +241,6 @@ class MLPClassifier(BaseEstimator, ClassifierMixin):
     def _sigmoid(output):
         return np.reciprocal(1 + np.exp(output * -1))
 
-    # Not required by sk-learn but required by us for grading. Returns the weights.
     def get_weights(self):
         return self.weights_input_to_hidden, self.weights_hidden_to_output
     #
-    # @staticmethod
-    # def _thresh_hold(num):
-    #     pass
